@@ -16,7 +16,7 @@ base_url='https://se.ifmo.ru/courses/software-engineering-basics?p_p_id=selab2_W
 
 for commit in $(seq ${first_commit} ${last_commit}); do
   zip_file="./output/commit${commit}.zip"
-  extract_dir="./output/commit${commit}"
+  extract_dir="./output/r${commit}"
 
   mkdir -p "$extract_dir"
 

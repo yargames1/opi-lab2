@@ -1,6 +1,6 @@
 #!/bin/bash
 # Create repository folder
-DIR="repo"
+DIR="${1:-repo}"
 rm -rf "$DIR"
 mkdir "$DIR"
 cd "$DIR" || exit 1
@@ -12,6 +12,8 @@ git init
 bash ../set-user.sh "Yaroslav"
 
 # Create commit
-cp -r ../../output/commit0/* .
+cp -r ../../output/r0/* .
 git add .
 git commit -m "r0"
+
+echo "git initted, commit r0 created"
