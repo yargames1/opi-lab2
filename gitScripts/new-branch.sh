@@ -1,21 +1,21 @@
 #!/bin/bash
 # get params
-branchname="${1:-newBranch}"
-commitnum="${2:-r0}"
+branchName="${1:-newBranch}"
+commitNum="${2:-r0}"
 DIR="${3:-repo}"
+isExist="${4:-1}"
 
-echo "в ветке"
-ls
 cd "$DIR"|| exit 1
 # create new branch
-git branch "${branchname}"
-echo "git branch ${branchname}"
-git checkout "${branchname}"
+if [ "$isExist" -eq 0 ]; then
+  git branch "${branchName}"
+  echo "git branch ${branchName}"
+fi
+
+# checkout
+git checkout "${branchName}"
+
 # add changes
+bash ../update-files.sh "${commitNum}" "$DIR"
 
-bash ../update-files.sh "${commitnum}" "$DIR"
-
-# commit changes
-git commit -m "${commitnum}"
-
-echo "new branch created, commit ${commitnum} created"
+echo "new branch created, commit ${commitNum} created"

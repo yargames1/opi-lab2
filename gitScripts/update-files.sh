@@ -1,11 +1,13 @@
 #!/bin/bash
 # get params
-commitnum="${1:-r0}"
+commitNum="${1:-r0}"
 
 echo "добавляем новые файды"
 ls
 # clear dir
 git clean -fdx
 # upload new files
-cp -r ../../output/"${commitnum}"/* .
+cp -r ../../output/"${commitNum}"/* .
 git add .
+# commit changes
+git commit -m "${commitNum}"
