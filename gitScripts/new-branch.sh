@@ -12,12 +12,10 @@ git branch "${branchname}"
 echo "git branch ${branchname}"
 git checkout "${branchname}"
 # add changes
-ls
-cd ../
-bash update-files.sh "${commitnum}" "$DIR"
-cd "$DIR"|| exit 1
+
+bash ../update-files.sh "${commitnum}" "$DIR"
+
 # commit changes
-ls
 git commit -m "${commitnum}"
 
 echo "new branch created, commit ${commitnum} created"
