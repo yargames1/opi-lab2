@@ -2,8 +2,8 @@
 # get params
 commitNum="${1:-r0}"
 
-echo "добавляем новые файды"
-ls
+echo "добавляем новые файлы"
+
 # clear dir
 git clean -fdx
 # upload new files

@@ -15,6 +15,6 @@ ls
 # r4
 # сменить ветку на main
 # добавить файлы r4, сохранить изменения
-
+bash new-branch.sh master r4 "$DIR"
 
 read -p "Press Enter to exit..."
