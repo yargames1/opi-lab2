@@ -10,13 +10,14 @@ cd "$DIR"|| exit 1
 # create new branch
 git branch "${branchname}"
 echo "git branch ${branchname}"
+git checkout "${branchname}"
 # add changes
 ls
 cd ../
 bash update-files.sh "${commitnum}" "$DIR"
+cd "$DIR"|| exit 1
 # commit changes
 ls
-cd "$DIR"|| exit 1
 git commit -m "${commitnum}"
 
 echo "new branch created, commit ${commitnum} created"
