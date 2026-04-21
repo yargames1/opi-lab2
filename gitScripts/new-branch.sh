@@ -16,6 +16,6 @@ fi
 git checkout "${branchName}"
 
 # add changes
-bash ../update-files.sh "${commitNum}" "$DIR"
+bash ../update-files.sh "${commitNum}"
 
 echo "new branch created, commit ${commitNum} created"
