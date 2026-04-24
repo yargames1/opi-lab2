@@ -1,9 +1,12 @@
 #!/bin/bash
-# Create repository folder
+
+# Create repo's dir
 DIR="${1:-repo}"
 rm -rf "$DIR"
 mkdir "$DIR"
+
+# move to repo's dir
 cd "$DIR" || exit 1
 
-# Initialize git repo
+# initialize git repo
 git init

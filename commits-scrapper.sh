@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# params
 variant="${1:-}"
 first_commit="${2:-0}"
 last_commit="${3:-1}"
 
+# exit if variant is not provided
 if [[ -z "$variant" ]]; then
   echo "Usage: $0 VARIANT" >&2
   exit 1
 fi
 
+# create commits data dir
 mkdir -p ./output
 
 base_url='https://se.ifmo.ru/courses/software-engineering-basics?p_p_id=selab2_WAR_seportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage'
 
+# download each commit to data dir
 for commit in $(seq "${first_commit}" "${last_commit}"); do
   zip_file="./output/commit${commit}.zip"
   extract_dir="./output/r${commit}"

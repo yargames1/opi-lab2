@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# params
 user="${1:-user0}"
 repository="${2:-.}"
 
