@@ -2,6 +2,7 @@
 
 # params
 DIR="repo"
+isForce=0 # set 1 to manual merge
 
 # exit on any error occurred
 set -e
@@ -183,6 +184,9 @@ bash checkout.sh blue-bottom "$DIR"
 bash commit.sh r37 "$DIR"
 
 # r38
+bash checkout.sh blue-center "$DIR"
+bash merge.sh "$DIR" blue-bottom "$isForce"
+bash commit.sh r38 "$DIR" 0
 
 # r39
 bash set-user.sh "Yaroslav"
@@ -206,6 +210,10 @@ bash checkout.sh red-top "$DIR"
 bash commit.sh r43 "$DIR"
 
 # r44
+bash set-user.sh "Maksim"
+bash checkout.sh blue-center "$DIR"
+bash merge.sh "$DIR" red-top "$isForce"
+bash commit.sh r44 "$DIR"
 
 # r45
 bash set-user.sh "Yaroslav"
@@ -217,16 +225,32 @@ bash checkout.sh red-bottom "$DIR"
 bash commit.sh r46 "$DIR"
 
 # r47
+bash checkout.sh main "$DIR"
+bash merge.sh "$DIR" red-bottom "$isForce"
+bash commit.sh r47 "$DIR"
 
 # r48
+bash set-user.sh "Maksim"
+bash checkout.sh blue-center "$DIR"
+bash commit.sh r48 "$DIR"
 
 # r49
+bash set-user.sh "Yaroslav"
+bash checkout.sh red-center "$DIR"
+bash merge.sh "$DIR" blue-center "$isForce"
+bash commit.sh r49 "$DIR"
 
 # r50
-
-# r51
 bash set-user.sh "Maksim"
 bash checkout.sh blue-top "$DIR"
+bash merge.sh "$DIR" red-center "$isForce"
+bash commit.sh r50 "$DIR"
+
+# r51
 bash commit.sh r51 "$DIR"
 
 # r52
+bash set-user.sh "Yaroslav"
+bash checkout.sh main "$DIR"
+bash merge.sh "$DIR" blue-top "$isForce"
+bash commit.sh r52 "$DIR"
