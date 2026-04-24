@@ -1,8 +1,11 @@
 #!/bin/bash
 DIR="repo"
+set -e
 bash init.sh "$DIR" # r0
+
 # r1
-bash new-branch.sh bottom r1 "$DIR" 0 # r1
+bash branch-checkout.sh bottom "$DIR" 0
+bash commit.sh r1 "$DIR"
 
 # r2
 
@@ -10,9 +13,8 @@ bash new-branch.sh bottom r1 "$DIR" 0 # r1
 
 # r4
 bash set-user.sh "Yaroslav"
-bash new-branch.sh master r4 "$DIR"
-
-# r4
+bash branch-checkout.sh main "$DIR"
+bash commit.sh r4 "$DIR"
 
 # r5
 
@@ -26,26 +28,31 @@ bash new-branch.sh master r4 "$DIR"
 
 # r10
 bash set-user.sh "Yaroslav"
-bash new-branch.sh bottom r10 "$DIR"
+bash branch-checkout.sh bottom "$DIR"
+bash commit.sh r10 "$DIR"
 
 # r11
 
 # r12
 bash set-user.sh "Yaroslav"
-bash new-branch.sh master r12 "$DIR"
+bash branch-checkout.sh main "$DIR"
+bash commit.sh r12 "$DIR"
 
 # r13
 
 # r14
 bash set-user.sh "Yaroslav"
-bash new-branch.sh master r14 "$DIR"
+bash branch-checkout.sh main "$DIR"
+bash commit.sh r14 "$DIR"
+
 # r15
 
 # r16
 
 # r17
 bash set-user.sh "Yaroslav"
-bash new-branch.sh master r17 "$DIR"
+bash branch-checkout.sh main "$DIR"
+bash commit.sh r17 "$DIR"
 
 # r18
 bash commit.sh r18 "$DIR"
@@ -73,7 +80,8 @@ bash commit.sh r18 "$DIR"
 # r29
 
 # r30
-bash new-branch.sh bottom r30 "$DIR"
+bash branch-checkout.sh bottom "$DIR"
+bash commit.sh r30 "$DIR"
 
 # r31
 
@@ -81,7 +89,8 @@ bash new-branch.sh bottom r30 "$DIR"
 
 # r33
 bash set-user.sh "Yaroslav"
-bash new-branch.sh bottom r33 "$DIR"
+bash branch-checkout.sh bottom "$DIR"
+bash commit.sh r33 "$DIR"
 
 # r34
 
@@ -107,9 +116,12 @@ bash new-branch.sh bottom r33 "$DIR"
 
 # r45
 bash set-user.sh "Yaroslav"
-bash new-branch.sh master r45 "$DIR"
+bash branch-checkout.sh main "$DIR"
+bash commit.sh r45 "$DIR"
+
 # r46
-bash new-branch.sh bottom r46 "$DIR"
+bash branch-checkout.sh bottom "$DIR"
+bash commit.sh r46 "$DIR"
 
 # r47
 
