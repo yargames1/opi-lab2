@@ -14,7 +14,7 @@ mkdir -p ./output
 
 base_url='https://se.ifmo.ru/courses/software-engineering-basics?p_p_id=selab2_WAR_seportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage'
 
-for commit in $(seq ${first_commit} ${last_commit}); do
+for commit in $(seq "${first_commit}" "${last_commit}"); do
   zip_file="./output/commit${commit}.zip"
   extract_dir="./output/r${commit}"
 
