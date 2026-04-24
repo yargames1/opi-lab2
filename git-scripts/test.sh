@@ -1,7 +1,11 @@
 #!/bin/bash
 DIR="repo"
 set -e
-bash init.sh "$DIR" # r0
+bash init.sh "$DIR"
+
+# r0
+bash set-user.sh "Yaroslav"
+bash commit.sh r0 "$DIR"
 
 # r1
 bash branch-checkout.sh bottom "$DIR" 0
@@ -134,6 +138,3 @@ bash commit.sh r46 "$DIR"
 # r51
 
 # r52
-
-
-read -p "Press Enter to exit..."
