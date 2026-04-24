@@ -1,6 +1,12 @@
 #!/bin/bash
+
+# params
 DIR="repo"
+
+# exit on any error occurred
 set -e
+
+# init
 bash init.sh "$DIR"
 
 # r0
