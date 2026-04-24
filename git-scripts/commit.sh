@@ -15,3 +15,4 @@ git add .
 git commit -m "${commitNum}"
 
 echo "Commit ${commitNum} created"
+printf "\n"
