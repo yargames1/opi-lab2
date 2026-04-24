@@ -13,4 +13,3 @@ fi
 
 # checkout
 git checkout "${branchName}"
-echo "Checked out to a branch '${branchName}'"
