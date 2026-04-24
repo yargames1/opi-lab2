@@ -2,7 +2,7 @@
 
 # params
 user="${1:-user0}"
-repository="${2:-.}"
+repository="${2:-repo}"
 
 git -C "$repository" config user.name "${user}"
 git -C "$repository" config user.email "${user}@mail.com"
