@@ -1,4 +1,8 @@
 .idea
 output
-git-scripts/repo
-svn-scripts/repo
+git-scripts/*
+svn-scripts/*
+
+!git-scripts/*.sh
+!svn-scripts/*.sh
+
