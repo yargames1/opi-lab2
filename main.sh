@@ -2,10 +2,14 @@
 
 # params
 DIR="repo"
-isForce=0 # set 1 to manual merge
+versionControl="${1:-git}"
+isForce="${2:-0}" # set 1 to manual merge
 
 # exit on any error occurred
 set -e
+
+# change current directory to specified version control
+cd "$versionControl-scripts"
 
 # init
 bash init.sh "$DIR"
