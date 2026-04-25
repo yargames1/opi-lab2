@@ -1,16 +1,34 @@
 #!/bin/bash
 
 # params
-versionControl=$1 # git / svn
-isForce=$2 # 0 for force, 1 for manual
+VERSION_CONTROL=$1 # git / svn
+IS_FORCE=$2 # 0 for force, 1 for manual
 REPO_DIR=$3 # source to repo directory
 WORKING_DIR=$4 # source to working directory (same as repo for git)
 
 # exit on any error occurred
 set -e
 
+# validation
+[[ -z "$VERSION_CONTROL" ]] && {
+    echo "Execute error: version control is required (svn/git)"
+    exit 1
+}
+[[ -z "$IS_FORCE" ]] && {
+    echo "Execute error: force mode param is required (0 - force, 1 - manual)"
+    exit 1
+}
+[[ -z "$REPO_DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
+[[ "$VERSION_CONTROL" == "svn" && -z "$WORKING_DIR" ]] && {
+    echo "Execute error: working copy directory is required"
+    exit 1
+}
+
 # change current directory to specified version control
-cd "$versionControl-scripts"
+cd "$VERSION_CONTROL-scripts"
 
 # init
 bash init.sh "$REPO_DIR" "$WORKING_DIR"
@@ -197,7 +215,7 @@ bash commit.sh r37 "$DIR"
 
 # r38
 bash checkout.sh blue-center "$DIR"
-bash merge.sh "$DIR" blue-bottom "$isForce"
+bash merge.sh "$DIR" blue-bottom "$IS_FORCE"
 bash commit.sh r38 "$DIR" 0
 
 # r39
@@ -224,7 +242,7 @@ bash commit.sh r43 "$DIR"
 # r44
 bash set-user.sh "Maksim" "$DIR"
 bash checkout.sh blue-center "$DIR"
-bash merge.sh "$DIR" red-top "$isForce"
+bash merge.sh "$DIR" red-top "$IS_FORCE"
 bash commit.sh r44 "$DIR"
 
 # r45
@@ -238,7 +256,7 @@ bash commit.sh r46 "$DIR"
 
 # r47
 bash checkout.sh main "$DIR"
-bash merge.sh "$DIR" red-bottom "$isForce"
+bash merge.sh "$DIR" red-bottom "$IS_FORCE"
 bash commit.sh r47 "$DIR"
 
 # r48
@@ -249,13 +267,13 @@ bash commit.sh r48 "$DIR"
 # r49
 bash set-user.sh "Yaroslav" "$DIR"
 bash checkout.sh red-center "$DIR"
-bash merge.sh "$DIR" blue-center "$isForce"
+bash merge.sh "$DIR" blue-center "$IS_FORCE"
 bash commit.sh r49 "$DIR"
 
 # r50
 bash set-user.sh "Maksim" "$DIR"
 bash checkout.sh blue-top "$DIR"
-bash merge.sh "$DIR" red-center "$isForce"
+bash merge.sh "$DIR" red-center "$IS_FORCE"
 bash commit.sh r50 "$DIR"
 
 # r51
@@ -264,5 +282,5 @@ bash commit.sh r51 "$DIR"
 # r52
 bash set-user.sh "Yaroslav" "$DIR"
 bash checkout.sh main "$DIR"
-bash merge.sh "$DIR" blue-top "$isForce"
+bash merge.sh "$DIR" blue-top "$IS_FORCE"
 bash commit.sh r52 "$DIR"

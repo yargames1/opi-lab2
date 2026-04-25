@@ -1,7 +1,14 @@
 #!/bin/bash
 
 # Create repo's dir
-DIR="${1:-repo}"
+DIR=$1
+
+# validation
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
+
 rm -rf "$DIR"
 mkdir "$DIR"
 

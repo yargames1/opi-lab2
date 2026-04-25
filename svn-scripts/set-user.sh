@@ -1,12 +1,22 @@
 #!/bin/bash
 
 # params
-user=$1
+USER=$1
 DIR=$2
 
-# save current user to .env file
-echo "SVN_AUTHOR=${user}" > "$DIR/.env"
+# validation
+[[ -z "$USER" ]] && {
+    echo "Execute error: USER (name) is required"
+    exit 1
+}
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
+
+# save current USER to .env file
+echo "SVN_AUTHOR=${USER}" > "$DIR/.env"
 
 printf "\n"
-echo "User ${user} saved as active"
+echo "USER ${USER} saved as active"
 printf "\n"

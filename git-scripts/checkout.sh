@@ -1,18 +1,28 @@
 #!/bin/bash
 
 # params
-branchName="${1:-newBranch}"
-DIR="${2:-repo}"
-isExist="${3:-1}"
+BRANCH_NAME=$1
+DIR=$2
+IS_EXISTS="${3:-1}"
+
+# validation
+[[ -z "$BRANCH_NAME" ]] && {
+    echo "Execute error: branch name is required"
+    exit 1
+}
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository param is required"
+    exit 1
+}
 
 # move to repo's dir
 cd "$DIR"|| exit 1
 
 # create new branch
-if [ "$isExist" -eq 0 ]; then
-  git branch "${branchName}"
-  echo "Created new branch '${branchName}'"
+if [ "$IS_EXISTS" -eq 0 ]; then
+  git branch "${BRANCH_NAME}"
+  echo "Created new branch '${BRANCH_NAME}'"
 fi
 
 # checkout
-git checkout "${branchName}"
+git checkout "${BRANCH_NAME}"

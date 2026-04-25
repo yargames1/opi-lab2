@@ -1,8 +1,18 @@
 #!/bin/bash
 
 # params
-commitNum="${1:-r0}"
-DIR="${2:-working_copy}"
+COMMIT_NUM=$1
+DIR=$2
+
+# validation
+[[ -z "$COMMIT_NUM" ]] && {
+    echo "Execute error: commit number is required"
+    exit 1
+}
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
 
 # move to working copy
 cd "$DIR" || exit 1
@@ -13,8 +23,8 @@ if [ -f .env ]; then
 fi
 
 # make changes
-echo "Making some changes for ${commitNum}"
-cp -r ../../output/"${commitNum}"/* . 2>/dev/null || true
+echo "Making some changes for ${COMMIT_NUM}"
+cp -r ../../output/"${COMMIT_NUM}"/* . 2>/dev/null || true
 
 # add new files
 svn add --force . 2>/dev/null || true
@@ -30,12 +40,12 @@ if svn status | grep '^C' | grep .; then
 fi
 
 # commit changes
-svn commit -m "${commitNum}"
+svn commit -m "${COMMIT_NUM}"
 
 # set active user as author
 if [ -n "$SVN_AUTHOR" ]; then
     svn propset --revprop -r HEAD svn:author "$SVN_AUTHOR" . 2>/dev/null || true
 fi
 
-echo "Commit ${commitNum} created by ${SVN_AUTHOR:-system}"
+echo "Commit ${COMMIT_NUM} created by ${SVN_AUTHOR:-system}"
 printf "\n"
