@@ -2,42 +2,42 @@
 
 # Create repo's dir
 MAIN_BRANCH_NAME=$1
-DIR=$2
-WORKING_COPY=$3
+REPO_DIR=$2
+WORKING_DIR=$3
 
 # validation
 [[ -z "$MAIN_BRANCH_NAME" ]] && {
     echo "Execute error: main branch name is required"
     exit 1
 }
-[[ -z "$DIR" ]] && {
+[[ -z "$REPO_DIR" ]] && {
     echo "Execute error: repository directory is required"
     exit 1
 }
-[[ -z "$WORKING_COPY" ]] && {
-    echo "Execute error: working copy directory is required"
+[[ -z "$WORKING_DIR" ]] && {
+    echo "Execute error: working directory is required"
     exit 1
 }
 
-rm -rf "$DIR"
-rm -rf "$WORKING_COPY"
-mkdir "$DIR"
-mkdir "$WORKING_COPY"
+rm -rf "$REPO_DIR"
+rm -rf "$WORKING_DIR"
+mkdir "$REPO_DIR"
+mkdir "$WORKING_DIR"
 
 # initialize svn repo
-svnadmin create "$DIR"
+svnadmin create "$REPO_DIR"
 
 # create default structure
 svn mkdir -m "Create standard structure" \
-    "file://$(pwd)/$DIR/$MAIN_BRANCH_NAME" \
-    "file://$(pwd)/$DIR/branches" \
-    "file://$(pwd)/$DIR/tags"
+    "file://$(pwd)/$REPO_DIR/$MAIN_BRANCH_NAME" \
+    "file://$(pwd)/$REPO_DIR/branches" \
+    "file://$(pwd)/$REPO_DIR/tags"
 
 # link working copy to repository
-svn checkout "file://$(pwd)/$DIR/$MAIN_BRANCH_NAME" "WORKING_COPY"
+svn checkout "file://$(pwd)/$REPO_DIR/$MAIN_BRANCH_NAME" "$WORKING_DIR"
 
 # add .env file to ignore
-cd "$WORKING_COPY" || exit 1
+cd "$WORKING_DIR" || exit 1
 
 # save main branch name to .env
 echo "MAIN_BRANCH_NAME=$MAIN_BRANCH_NAME" > ".svn/.main-branch"

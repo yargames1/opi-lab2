@@ -38,7 +38,7 @@ cd "$VERSION_CONTROL-scripts"
 # init
 bash init.sh "$MAIN_BRANCH_NAME" "$REPO_DIR" "$WORKING_DIR"
 
-# set working dir as working copy for svn or repo dir otherwise
+# set active dir as working dir for svn / repo dir for git
 if [[ -n "$WORKING_DIR" ]]; then
     DIR="$WORKING_DIR"
 else

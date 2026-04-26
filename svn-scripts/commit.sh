@@ -2,20 +2,20 @@
 
 # params
 COMMIT_NUM=$1
-DIR=$2
+WORKING_DIR=$2
 
 # validation
 [[ -z "$COMMIT_NUM" ]] && {
     echo "Execute error: commit number is required"
     exit 1
 }
-[[ -z "$DIR" ]] && {
-    echo "Execute error: repository directory is required"
+[[ -z "$WORKING_DIR" ]] && {
+    echo "Execute error: working directory is required"
     exit 1
 }
 
 # move to working copy
-cd "$DIR" || exit 1
+cd "$WORKING_DIR" || exit 1
 
 # load .env if exists
 if [ -f .svn/.active-user ]; then
