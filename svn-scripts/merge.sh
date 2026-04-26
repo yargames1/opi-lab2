@@ -2,7 +2,7 @@
 
 # params
 WORKING_DIR=$1
-FEATURE_BRANCH=$2
+FEATURE_BRANCH_NAME=$2
 IS_FORCE="${3:-1}"
 
 # validation
@@ -10,31 +10,30 @@ IS_FORCE="${3:-1}"
     echo "Execute error: working directory is required"
     exit 1
 }
-[[ -z "$FEATURE_BRANCH" ]] && {
+[[ -z "$FEATURE_BRANCH_NAME" ]] && {
     echo "Execute error: feature branch name is required"
     exit 1
 }
+
+# move to working directory
+cd "$WORKING_DIR"|| exit 1
 
 # load .main-branch if exists
 if [ -f .svn/.main-branch ]; then
     source .svn/.main-branch
 fi
 
-# move to working directory
-cd "$WORKING_DIR"|| exit 1
-
 svn update
 # get repository URL
-REPO_URL=$(svn info --show-item url | sed "s|/$MAIN_BRANCH$||" | sed 's|/branches/[^/]*$||')
+REPO_URL=$(svn info --show-item url | sed "s|/$MAIN_BRANCH_NAME$||" | sed 's|/branches/[^/]*$||')
 
-if [ "$FEATURE_BRANCH" = "$MAIN_BRANCH" ]; then
-  FEATURE_BRANCH_PATH="$REPO_URL/$MAIN_BRANCH"
+if [ "$FEATURE_BRANCH_NAME" = "$MAIN_BRANCH_NAME" ]; then
+  FEATURE_BRANCH_PATH="$REPO_URL/$MAIN_BRANCH_NAME"
 else
-  FEATURE_BRANCH_PATH="$REPO_URL/branches/$FEATURE_BRANCH"
+  FEATURE_BRANCH_PATH="$REPO_URL/branches/$FEATURE_BRANCH_NAME"
 fi
 
 if [ "$IS_FORCE" -eq 0 ]; then
-  echo "Force merge enabled, exporting changes from '$FEATURE_BRANCH'"
 
   svn export --force "$FEATURE_BRANCH_PATH" .
   svn add --force .

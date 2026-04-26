@@ -44,7 +44,7 @@ svn commit -m "$COMMIT_NUM"
 
 # set active user as author
 if [ -n "$ACTIVE_USER" ]; then
-    svn propset --revprop -r HEAD svn:author "$ACTIVE_USER" . 2>/dev/null || exit 1
+    svn propset --revprop -r HEAD svn:author "$ACTIVE_USER" . 2>/dev/null
 fi
 
 echo "Commit $COMMIT_NUM created by ${ACTIVE_USER:-system}"
