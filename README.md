@@ -14,12 +14,11 @@
 ### Как запускать:
 
 ```sh main.sh <version-control> <main-branch-name> <force-mode> <repository-directory> <working-directory>```
-- ```<version-control>``` - specified versions control system - __git__ / __svn__
+- ```<version-control>``` - specified version control system - __git__ / __svn__
 - ```<main-branch-name>``` - name of default main branch
 - ```<force-mode>``` - 0 for auto merge, 1 to merge manually 
-- ```<repository-directory>``` - path to repo's dir, relative to main.sh script
-- ```<working-directory>``` - path to working dir (for _git_ same as repo's dir), relative to main.sh script
-
+- ```<repository-directory>``` - path to repo's dir, relative to the corresponding ```<version-control>-scripts``` directory used by ```main.sh```
+- ```<working-directory>``` - path to working dir (for _git_ same as repo's dir), relative to the corresponding ```<version-control>-scripts``` directory used by ```main.sh```
 ### То, что уже реализовано
 
 Git:

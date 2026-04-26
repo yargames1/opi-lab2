@@ -23,7 +23,7 @@ if [ -f .svn/.main-branch ]; then
 fi
 
 # get repository directory
-REPO_DIR=$(svn info --show-item url | sed 's|/trunk$||' | sed 's|/branches/[^/]*$||')
+REPO_DIR=$(svn info --show-item url | sed "s|/$MAIN_BRANCH_NAME$||" | sed 's|/branches/[^/]*$||')
 
 # determine if this is main branch
 if [ "$BRANCH_NAME" = "$MAIN_BRANCH_NAME" ]; then
@@ -33,7 +33,7 @@ else
 
     # create a new branch if needed
     if [ "$IS_EXISTS" -eq 0 ]; then
-        svn copy "$REPO_DIR/trunk" "$REPO_DIR/branches/$BRANCH_NAME" -m "Created branch '$BRANCH_NAME'"
+        svn copy "$REPO_DIR/$MAIN_BRANCH_NAME" "$REPO_DIR/branches/$BRANCH_NAME" -m "Created branch '$BRANCH_NAME'"
         echo "Created new branch '$BRANCH_NAME'"
     fi
 fi

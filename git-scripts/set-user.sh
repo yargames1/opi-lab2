@@ -14,8 +14,8 @@ DIR=$2
     exit 1
 }
 
-git -C "$DIR" config USER.name "${USER}"
-git -C "$DIR" config USER.email "${USER}@mail.com"
+git -C "$DIR" config user.name "${USER}"
+git -C "$DIR" config user.email "${USER}@mail.com"
 
 printf "\n"
 echo "USER ${USER} set as active"

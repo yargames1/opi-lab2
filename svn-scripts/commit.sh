@@ -17,7 +17,7 @@ WORKING_DIR=$2
 # move to working copy
 cd "$WORKING_DIR" || exit 1
 
-# load .env if exists
+# load active user if defined
 if [ -f .svn/.active-user ]; then
     source .svn/.active-user
 fi
@@ -32,7 +32,7 @@ svn status | grep '^?' | awk '{print $2}' | xargs svn add 2>/dev/null || true
 # delete files that no longer exist
 svn status | grep '^!' | awk '{print $2}' | xargs svn delete 2>/dev/null || true
 
-# check unresolved conflicts (проверка конфликтов в SVN)
+# check unresolved conflicts
 if svn status | grep '^C' | grep .; then
     echo "ERROR: Unresolved conflicts found!"
     svn status
@@ -44,7 +44,7 @@ svn commit -m "$COMMIT_NUM"
 
 # set active user as author
 if [ -n "$ACTIVE_USER" ]; then
-    svn propset --revprop -r HEAD svn:author "$ACTIVE_USER" . 2>/dev/null || true
+    svn propset --revprop -r HEAD svn:author "$ACTIVE_USER" . 2>/dev/null || exit 1
 fi
 
 echo "Commit $COMMIT_NUM created by ${ACTIVE_USER:-system}"

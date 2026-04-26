@@ -14,7 +14,7 @@ WORKING_DIR=$2
     exit 1
 }
 
-# save current USER to .env file
+# save current USER
 echo "ACTIVE_USER=$USER" > "$WORKING_DIR/.svn/.active-user"
 
 printf "\n"

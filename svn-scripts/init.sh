@@ -39,7 +39,7 @@ svn checkout "file://$(pwd)/$REPO_DIR/$MAIN_BRANCH_NAME" "$WORKING_DIR"
 # add .env file to ignore
 cd "$WORKING_DIR" || exit 1
 
-# save main branch name to .env
+# save main branch name
 echo "MAIN_BRANCH_NAME=$MAIN_BRANCH_NAME" > ".svn/.main-branch"
 echo "ACTIVE_USER=" > ".svn/.active-user"
 

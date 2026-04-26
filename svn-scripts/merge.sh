@@ -15,12 +15,17 @@ IS_FORCE="${3:-1}"
     exit 1
 }
 
+# load .main-branch if exists
+if [ -f .svn/.main-branch ]; then
+    source .svn/.main-branch
+fi
+
 # move to working directory
 cd "$WORKING_DIR"|| exit 1
 
 svn update
 # get repository URL
-REPO_URL=$(svn info --show-item url | sed 's|/trunk$||' | sed 's|/branches/[^/]*$||')
+REPO_URL=$(svn info --show-item url | sed "s|/$MAIN_BRANCH$||" | sed 's|/branches/[^/]*$||')
 
 if [ "$FEATURE_BRANCH" = "$MAIN_BRANCH" ]; then
   FEATURE_BRANCH_PATH="$REPO_URL/$MAIN_BRANCH"
