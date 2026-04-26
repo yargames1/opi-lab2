@@ -20,6 +20,35 @@ ask_with_validation() {
     done
 }
 
+# render gif
+play_infinite_gif() {
+    local gif="$1"
+    local temp="/tmp/gif_$$"
+
+    mkdir -p "$temp"
+    convert -coalesce "$gif" "$temp/frame_%04d.png" 2>/dev/null
+
+    frames=("$temp"/frame_*.png)
+
+    tput civis
+    while true; do
+        for frame in "${frames[@]}"; do
+            clear
+            jp2a --width=60 --colors --background=dark "$frame" 2>/dev/null
+            sleep 0.02
+        done
+    done
+}
+
+# cleanup on interrupt
+cleanup() {
+    tput cnorm
+    rm -rf "$temp"
+    clear
+    exit 0
+}
+trap cleanup INT TERM
+
 # validation functions
 validate_version_control() {
     local vc="$1"
@@ -42,6 +71,7 @@ validate_different_dirs() {
 
 # clear screen
 clear
+tput cnorm
 
 echo "========================================="
 echo "  Интерактивный запуск сценария SVN/Git  "
@@ -138,6 +168,10 @@ echo ""
 echo "========================================="
 if [[ $exit_code -eq 0 ]]; then
     echo "✓ Скрипт выполнен успешно!"
+    echo "Спасибо за ожидание <3"
+
+    # Play funny GIF
+    play_infinite_gif "assets/cat-rotating.gif"
 else
     echo "✗ Скрипт завершился с ошибкой (код $exit_code)"
 fi
