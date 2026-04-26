@@ -18,8 +18,8 @@ DIR=$2
 cd "$DIR" || exit 1
 
 # load .env if exists
-if [ -f .env ]; then
-    source .env
+if [ -f .svn/.active-user ]; then
+    source .svn/.active-user
 fi
 
 # make changes
@@ -40,12 +40,12 @@ if svn status | grep '^C' | grep .; then
 fi
 
 # commit changes
-svn commit -m "${COMMIT_NUM}"
+svn commit -m "$COMMIT_NUM"
 
 # set active user as author
-if [ -n "$SVN_AUTHOR" ]; then
-    svn propset --revprop -r HEAD svn:author "$SVN_AUTHOR" . 2>/dev/null || true
+if [ -n "$ACTIVE_USER" ]; then
+    svn propset --revprop -r HEAD svn:author "$ACTIVE_USER" . 2>/dev/null || true
 fi
 
-echo "Commit ${COMMIT_NUM} created by ${SVN_AUTHOR:-system}"
+echo "Commit $COMMIT_NUM created by ${ACTIVE_USER:-system}"
 printf "\n"

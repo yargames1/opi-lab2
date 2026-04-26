@@ -41,6 +41,6 @@ cd "$WORKING_COPY" || exit 1
 
 # save main branch name to .env
 echo "MAIN_BRANCH_NAME=$MAIN_BRANCH_NAME" > ".svn/.main-branch"
-echo "SVN_AUTHOR=" > ".svn/.svn-author"
+echo "ACTIVE_USER=" > ".svn/.active-user"
 
-svn propset svn:ignore ".svn/.main-branch"$'\n'".svn/.svn-author" .
+svn propset svn:ignore ".svn/.main-branch"$'\n'".svn/.active-user" .

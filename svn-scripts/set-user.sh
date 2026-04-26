@@ -15,7 +15,7 @@ DIR=$2
 }
 
 # save current USER to .env file
-echo "SVN_AUTHOR=$USER" > "$DIR/.svn/.svn-author"
+echo "ACTIVE_USER=$USER" > "$DIR/.svn/.active-user"
 
 printf "\n"
 echo "USER $USER saved as active"
