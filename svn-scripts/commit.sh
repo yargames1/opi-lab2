@@ -17,7 +17,7 @@ DIR=$2
 # move to working copy
 cd "$DIR" || exit 1
 
-# load active user if exists
+# load .env if exists
 if [ -f .env ]; then
     source .env
 fi
@@ -27,7 +27,7 @@ echo "Making some changes for ${COMMIT_NUM}"
 cp -r ../../output/"${COMMIT_NUM}"/* . 2>/dev/null || true
 
 # add new files
-svn add --force . 2>/dev/null || true
+svn status | grep '^?' | awk '{print $2}' | xargs svn add 2>/dev/null || true
 
 # delete files that no longer exist
 svn status | grep '^!' | awk '{print $2}' | xargs svn delete 2>/dev/null || true

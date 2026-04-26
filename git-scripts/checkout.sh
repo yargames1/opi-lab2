@@ -18,7 +18,7 @@ IS_EXISTS="${3:-1}"
 # move to repo's dir
 cd "$DIR"|| exit 1
 
-# create new branch
+# create a new branch
 if [ "$IS_EXISTS" -eq 0 ]; then
   git branch "${BRANCH_NAME}"
   echo "Created new branch '${BRANCH_NAME}'"

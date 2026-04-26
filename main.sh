@@ -2,9 +2,10 @@
 
 # params
 VERSION_CONTROL=$1 # git / svn
-IS_FORCE=$2 # 0 for force, 1 for manual
-REPO_DIR=$3 # source to repo directory
-WORKING_DIR=$4 # source to working directory (same as repo for git)
+MAIN_BRANCH_NAME=$2 # main branch default name
+IS_FORCE=$3 # 0 for force, 1 for manual
+REPO_DIR=$4 # source to repo directory
+WORKING_DIR=$5 # source to working directory (same as repo for git)
 
 # exit on any error occurred
 set -e
@@ -12,6 +13,10 @@ set -e
 # validation
 [[ -z "$VERSION_CONTROL" ]] && {
     echo "Execute error: version control is required (svn/git)"
+    exit 1
+}
+[[ -z "$MAIN_BRANCH_NAME" ]] && {
+    echo "Execute error: main branch name is required"
     exit 1
 }
 [[ -z "$IS_FORCE" ]] && {
@@ -31,7 +36,7 @@ set -e
 cd "$VERSION_CONTROL-scripts"
 
 # init
-bash init.sh "$REPO_DIR" "$WORKING_DIR"
+bash init.sh "$MAIN_BRANCH_NAME" "$REPO_DIR" "$WORKING_DIR"
 
 # set working dir as working copy for svn or repo dir otherwise
 if [[ -n "$WORKING_DIR" ]]; then
@@ -58,7 +63,7 @@ bash commit.sh r3 "$DIR"
 
 # r4
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r4 "$DIR"
 
 # r5
@@ -95,7 +100,7 @@ bash commit.sh r11 "$DIR"
 
 # r12
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r12 "$DIR"
 
 # r13
@@ -105,7 +110,7 @@ bash commit.sh r13 "$DIR"
 
 # r14
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r14 "$DIR"
 
 # r15
@@ -119,7 +124,7 @@ bash commit.sh r16 "$DIR"
 
 # r17
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r17 "$DIR"
 
 # r18
@@ -201,7 +206,7 @@ bash commit.sh r34 "$DIR"
 
 # r35
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r35 "$DIR"
 
 # r36
@@ -247,7 +252,7 @@ bash commit.sh r44 "$DIR"
 
 # r45
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash commit.sh r45 "$DIR"
 
 # r46
@@ -255,7 +260,7 @@ bash checkout.sh red-bottom "$DIR"
 bash commit.sh r46 "$DIR"
 
 # r47
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash merge.sh "$DIR" red-bottom "$IS_FORCE"
 bash commit.sh r47 "$DIR"
 
@@ -281,6 +286,6 @@ bash commit.sh r51 "$DIR"
 
 # r52
 bash set-user.sh "Yaroslav" "$DIR"
-bash checkout.sh main "$DIR"
+bash checkout.sh "$MAIN_BRANCH_NAME" "$DIR"
 bash merge.sh "$DIR" blue-top "$IS_FORCE"
 bash commit.sh r52 "$DIR"
