@@ -1,12 +1,22 @@
 #!/bin/bash
 
 # params
-user="${1:-user0}"
-repository="${2:-repo}"
+USER=$1
+DIR=$2
 
-git -C "$repository" config user.name "${user}"
-git -C "$repository" config user.email "${user}@mail.com"
+# validation
+[[ -z "$USER" ]] && {
+    echo "Execute error: USER (name) is required"
+    exit 1
+}
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
+
+git -C "$DIR" config user.name "${USER}"
+git -C "$DIR" config user.email "${USER}@mail.com"
 
 printf "\n"
-echo "User ${user} set as active"
+echo "USER ${USER} set as active"
 printf "\n"

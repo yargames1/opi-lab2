@@ -1,15 +1,25 @@
 #!/bin/bash
 
 # params
-commitNum="${1:-r0}"
-DIR="${2:-repo}"
+COMMIT_NUM=$1
+DIR=$2
+
+# validation
+[[ -z "$COMMIT_NUM" ]] && {
+    echo "Execute error: commit number is required"
+    exit 1
+}
+[[ -z "$DIR" ]] && {
+    echo "Execute error: repository directory is required"
+    exit 1
+}
 
 # move to repo's dir
 cd "$DIR"|| exit 1
 
 # make changes
   echo "Making some changes"
-  cp -r ../../output/"${commitNum}"/* .
+  cp -r ../../output/"${COMMIT_NUM}"/* .
   git add .
 
 # check unresolved conflicts
@@ -20,6 +30,6 @@ if git ls-files -u | grep .; then
 fi
 
 # commit changes
-git commit -m "${commitNum}"
-echo "Commit ${commitNum} created"
+git commit -m "${COMMIT_NUM}"
+echo "Commit ${COMMIT_NUM} created"
 printf "\n"
