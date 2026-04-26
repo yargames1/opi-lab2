@@ -54,6 +54,11 @@ ask_with_validation \
     "validate_version_control" \
     "Неверный формат ввода. Пожалуйста, введите 'git' или 'svn':"
 
+# show art based on selection
+echo ""
+jp2a --width=40 "assets/$VERSION_CONTROL.png"
+echo ""
+
 echo "✓ Выбрано: $VERSION_CONTROL"
 
 # main branch select
