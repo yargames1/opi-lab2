@@ -22,22 +22,25 @@ if [ -f .svn/.main-branch ]; then
     source .svn/.main-branch
 fi
 
-# get repository directory
-REPO_DIR=$(svn info --show-item url | sed "s|/$MAIN_BRANCH_NAME$||" | sed 's|/branches/[^/]*$||')
+# get current branch URL
+CURRENT_URL=$(svn info --show-item url)
+
+# get repository root URL
+REPO_ROOT=$(svn info --show-item repos-root-url)
 
 # determine if this is main branch
 if [ "$BRANCH_NAME" = "$MAIN_BRANCH_NAME" ]; then
-    BRANCH_PATH="$MAIN_BRANCH_NAME"
+    TARGET_URL="$REPO_ROOT/$MAIN_BRANCH_NAME"
 else
-    BRANCH_PATH="branches/$BRANCH_NAME"
+    TARGET_URL="$REPO_ROOT/branches/$BRANCH_NAME"
 
     # create a new branch if needed
     if [ "$IS_EXISTS" -eq 0 ]; then
-        svn copy "$REPO_DIR/$MAIN_BRANCH_NAME" "$REPO_DIR/branches/$BRANCH_NAME" -m "Created branch '$BRANCH_NAME'"
-        echo "Created new branch '$BRANCH_NAME'"
+        svn copy "$CURRENT_URL" "$TARGET_URL" -m "Created branch '$BRANCH_NAME' from current branch"
+        echo "Created new branch '$BRANCH_NAME' from current branch"
     fi
 fi
 
 # switch to a new branch
-svn switch "$REPO_DIR/$BRANCH_PATH"
+svn switch "$TARGET_URL"
 echo "Switched to branch '$BRANCH_NAME'"
