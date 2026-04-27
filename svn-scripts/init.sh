@@ -5,6 +5,9 @@ MAIN_BRANCH_NAME=$1
 REPO_DIR=$2
 WORKING_DIR=$3
 
+echo "$REPO_DIR"
+echo "$WORKING_DIR"
+
 # validation
 [[ -z "$MAIN_BRANCH_NAME" ]] && {
     echo "Execute error: main branch name is required"
