@@ -38,7 +38,7 @@ play_gif() {
     while true; do
         for frame in "${frames[@]}"; do
             clear
-            jp2a --width=60 --colors --background=dark "$frame" 2>/dev/null
+            jp2a --width=60 --chars=" .:-=+*#%@" "$frame" 2>/dev/null
             sleep 0.02
 
             if [[ "$duration" -gt 0 ]]; then
@@ -188,7 +188,7 @@ if [[ $exit_code -eq 0 ]]; then
     echo "Спасибо за ожидание <3"
 
     # Play funny GIF
-    play_gif "assets/cat-rotating.gif"
+    play_gif "assets/cat-rotating.gif" 15
 else
     echo "✗ Скрипт завершился с ошибкой (код $exit_code)"
 fi
