@@ -21,8 +21,9 @@ ask_with_validation() {
 }
 
 # render gif
-play_infinite_gif() {
+play_gif() {
     local gif="$1"
+    local duration="${2:-0}"
     local temp="/tmp/gif_$$"
 
     mkdir -p "$temp"
@@ -31,11 +32,23 @@ play_infinite_gif() {
     frames=("$temp"/frame_*.png)
 
     tput civis
+
+    local start_time=$(date +%s)
+
     while true; do
         for frame in "${frames[@]}"; do
             clear
             jp2a --width=60 --colors --background=dark "$frame" 2>/dev/null
             sleep 0.02
+
+            if [[ "$duration" -gt 0 ]]; then
+                local now=$(date +%s)
+                if (( now - start_time >= duration )); then
+                    tput cnorm
+                    rm -rf "$temp"
+                    return
+                fi
+            fi
         done
     done
 }
@@ -147,9 +160,13 @@ echo -n "Запустить? (y/n): "
 read -r confirm
 if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
     echo "Отменено."
+    # write sad smile
+    cat "assets/ascii-sad.txt"
     exit 0
 fi
 
+# play preparation gif
+play_gif "assets/cat-typing.gif" 3
 # run main.sh with provided params
 echo ""
 echo "Запуск main.sh..."
@@ -171,7 +188,7 @@ if [[ $exit_code -eq 0 ]]; then
     echo "Спасибо за ожидание <3"
 
     # Play funny GIF
-    play_infinite_gif "assets/cat-rotating.gif"
+    play_gif "assets/cat-rotating.gif"
 else
     echo "✗ Скрипт завершился с ошибкой (код $exit_code)"
 fi
